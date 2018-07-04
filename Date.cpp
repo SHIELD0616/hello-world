@@ -3,11 +3,56 @@ public:
   Date(int y, int m, int d);
   ~Date();
 
-  void nextDay();
-  void previousDay();
-  bool equal(Date other);
-  void show();
-private:
+  void nextDay()
+  {
+    int day_month[]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+	  if(year%4==0)
+	  {
+		  if(year%100!=0)
+			  day_month[2]=29;
+		  else
+			  if(year%400==0)
+				  day_month[2]=29;
+	  }
+	  day += 1;
+	  if(day>day_month[month])
+		  day=1,month+=1;
+	  if(month>12)
+    month=1,year+=1;
+  }
+  void previousDay()
+  {
+    int day_month[]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+	  if(year%4==0)
+	  {
+		  if(year%100!=0)
+			  day_month[2]=29;
+	  	else
+			  if(year%400==0)
+				  day_month[2]=29;
+	  }
+	  day -= 1;
+	  if(day.day<=0)
+	  {
+		  month-=1;
+		  if(month<=0)
+			  year-=1,month=12;
+		  day=day_month[month];
+	}
+
+  }
+  bool equal(Date other)
+  {
+     if(other.year==year&&other.day==day&&other.month==month)
+       return true;
+    else
+      return false;
+  }
+  void show()
+  {
+    printf("04d/%02d/%02d\n", year, month, day); 
+  }
+
   int year;
   int month;
   int day;
